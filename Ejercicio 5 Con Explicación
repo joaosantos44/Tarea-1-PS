@@ -1,0 +1,37 @@
+%transformada de fourier para analizar la frecuencia que causa problemas
+ecg_noisy_transformada = fft(ecg_noisy);
+
+%graficar la transformada sin que se limpiace el ruido
+S = ecg_noisy_transformada(2:N);
+
+%sumar 1 a los valores que salgan en la grafica (esto es por haber empezado
+%en 2 y no en 1 para poder ver bien los valores)
+%valor mostrado en la grafica 720, 2880 valor donde se encuentra el ruido 721, 2881
+%eliminar los valores que dan problema haciendolos 0
+ecg_noisy_transformada([721, 2881]) = 0;
+
+%regresar la funcion en a terminos del tiempo 
+filtracion = ifft(ecg_noisy_transformada);
+
+
+% Sin ruido
+f1 = figure;
+u = tiledlayout(4, 2);
+
+nexttile([1 2])
+plot(ecg, "b")
+title('Señal Normal')
+
+% Con ruido
+nexttile(3, [1 2])
+plot(ecg_noisy, "R")
+title('Señal Con Ruido')
+
+% Con ruido transformada
+nexttile(5, [1 2])
+stem(S, "G")
+title('Señal Con Ruido Transformada')
+
+nexttile(7, [1 2])
+plot(filtracion, "Y")
+title('Señal Con Ruido Filtrada')
