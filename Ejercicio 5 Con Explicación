@@ -14,10 +14,11 @@ ecg_noisy_transformada([721, 2881]) = 0;
 filtracion = ifft(ecg_noisy_transformada);
 
 
-% Sin ruido
+
 f1 = figure;
 u = tiledlayout(4, 2);
 
+% Sin ruido
 nexttile([1 2])
 plot(ecg, "b")
 title('Señal Normal')
