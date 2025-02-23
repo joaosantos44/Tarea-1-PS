@@ -1,0 +1,63 @@
+% Cargar archivos de audio
+% -> x1 = batería
+% -> x2 = bajo
+[x1, fs] = audioread('beat.wav');
+[x2, fs] = audioread('bass.wav');
+
+%si quiere que la batería suene mas escoja un valor entre 0 y 1 mayor que
+%el valor b
+a = 0.7;
+%si quiere que la bajo suene mas escoja un valor entre 0 y 1 mayor que
+%el valor a
+b = 0.3;
+
+%mixi = 0.1*x1;
+mixi = a*x1 + b*x2;
+
+% Probar si los resultados son los esperados
+sound(mixi, fs);
+
+% Lado derecho
+f1 = figure;
+u = tiledlayout(2, 2);
+
+nexttile
+plot(x1(:,1), "b")
+title('Batería Derecha')
+xlabel('Tiempo')
+ylabel('Frecuencia')
+
+nexttile
+plot(x2(:,1), "b")
+title('Bajo Derecha')
+xlabel('Tiempo')
+ylabel('Frecuencia')
+
+nexttile(3, [1 2])
+plot(mixi(:,1), "b")
+title('Mix Derecha')
+xlabel('Tiempo')
+ylabel('Frecuencia')
+
+
+% Lado izquierdo
+f2 = figure;
+u = tiledlayout(2, 2);
+
+nexttile
+plot(x1(:,2), "R")
+title('Batería Izquierda')
+xlabel('Tiempo')
+ylabel('Frecuencia')
+
+nexttile
+plot(x2(:,2), "R")
+title('Bajo Izquierda')
+xlabel('Tiempo')
+ylabel('Frecuencia')
+
+nexttile(3, [1 2])
+plot(mixi(:,2), "R")
+title('Mix izquierda')
+xlabel('Tiempo')
+ylabel('Frecuencia')
